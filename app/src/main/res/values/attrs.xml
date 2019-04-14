@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--声明自定义属性的样式-->
+    <declare-styleable name="inputView">
+        <!--输入框前的小图标-->
+        <attr name="input_icon" format="reference"></attr>
+        <!--输入框的提示内容-->
+        <attr name="input_hint" format="string"></attr>
+        <!--密码是否以密文显示-->
+        <attr name="is_password" format="boolean"></attr>
+    </declare-styleable>
+</resources>

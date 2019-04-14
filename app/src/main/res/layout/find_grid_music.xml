@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="@dimen/playNumImgSize">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.viewpagertext.views.MyRoundedImageView
+            android:id="@+id/iv_Grid_Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/nav_icon"
+            app:riv_corner_radius="10dp"
+            app:riv_oval="false"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right|center_vertical"
+            android:layout_margin="@dimen/albumMarginSize">
+
+            <ImageView
+                android:layout_width="@dimen/playNumImgSize"
+                android:layout_height="@dimen/playNumImgSize"
+                android:src="@mipmap/play_num"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10.00万"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/playNumSize"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/albumMarginSize"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="歌单名称"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/infoSize"
+        android:padding="@dimen/albumMarginSize" />
+</LinearLayout>

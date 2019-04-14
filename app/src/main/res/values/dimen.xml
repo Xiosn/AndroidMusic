@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="titleTextSize">16sp</dimen>
+    <dimen name="titleMarginSize">10dp</dimen>
+    <dimen name="nav_Size">14sp</dimen>
+    <dimen name="playNumImgSize">12dp</dimen>
+    <dimen name="albumMarginSize">5dp</dimen>
+    <dimen name="infoSize">14sp</dimen>
+    <dimen name="findSize">12sp</dimen>
+    <dimen name="playNumSize">12dp</dimen>
+    <dimen name="icon_text_Size">20dp</dimen>
+    <dimen name="find_button_width">65dp</dimen>
+    <dimen name="find_button_height">25dp</dimen>
+    <dimen name="my_icon">15dp</dimen>
+</resources>

@@ -1,0 +1,31 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="activityAppTheme" parent="AppTheme"></style>
+
+    <!--发现页的歌单广场-->
+    <style name="Find_Button_right_Style" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">@dimen/find_button_width</item>
+        <item name="android:layout_height">@dimen/find_button_height</item>
+        <item name="android:background">@drawable/btn_select</item>
+        <item name="android:textSize">@dimen/findSize</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <!--发现页的推荐歌单-->
+    <style name="Find_TextView_right_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/titleTextSize</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+
+</resources>
