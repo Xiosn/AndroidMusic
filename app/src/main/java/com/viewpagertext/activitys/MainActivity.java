@@ -2,11 +2,14 @@ package com.viewpagertext.activitys;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +22,9 @@ import com.viewpagertext.fragments.Find;
 import com.viewpagertext.fragments.Friend;
 import com.viewpagertext.fragments.My;
 import com.viewpagertext.utils.UserUtils;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +35,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
     private ViewPager viewPager;
     private FindFragmentStatePagerAdapter myFragmentStatePagerAdapter;
     private List<Fragment> mDatas;
-    private TextView tv_my,tv_find,tv_friends,nav_close;
+    private TextView tv_my,tv_find,tv_friends,nav_close,username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
 
         initData();//添加Fragment到 List<Fragment> mDatas集合
         initIdListener();//获取控件实例
+        header_click();//动态加载nav头布局
 
         myFragmentStatePagerAdapter=new FindFragmentStatePagerAdapter(getSupportFragmentManager(),mDatas);
         viewPager.setAdapter(myFragmentStatePagerAdapter);
@@ -45,6 +52,54 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         setTitleTextViewColor(viewPager.getCurrentItem());//首次加载viewPager 页面对应的button的文字颜色
     }
 
+
+    /**
+     * 页面事件
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_my:
+                viewPager.setCurrentItem(0);
+                break;
+            case R.id.tv_find:
+                viewPager.setCurrentItem(1);
+                break;
+            case R.id.tv_friends:
+                viewPager.setCurrentItem(2);
+                break;
+            case R.id.nav_close:
+                System.exit(0);
+                break;
+            case R.id.username:
+                AlertDialog.Builder builder=new AlertDialog.Builder(this);
+                LayoutInflater inflater=getLayoutInflater();
+                View layout=inflater.inflate(R.layout.login_dialog,null);//载入布局
+                builder.setView(layout);
+                View sina_login=layout.findViewById(R.id.sina_login);
+                sina_login.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(),"登录",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.create().show();
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 动态加载nav头布局
+     */
+    private void header_click(){
+        NavigationView navigationView=findViewById(R.id.nav_view);
+        View nav_header=navigationView.inflateHeaderView(R.layout.nav_header);
+        username=nav_header.findViewById(R.id.username);
+        username.setOnClickListener(this);
+    }
 
     /**
      * 获取控件实例
@@ -60,7 +115,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         viewPager=findViewById(R.id.viewPager);
 
 
-
         //toolbar_TextView
         tv_my=findViewById(R.id.tv_my);
         tv_find=findViewById(R.id.tv_find);
@@ -70,6 +124,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         tv_find.setOnClickListener(this);
         tv_friends.setOnClickListener(this);
 
+        //nav的退出
         nav_close=findViewById(R.id.nav_close);
         nav_close.setOnClickListener(this);
 
@@ -111,32 +166,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         mDatas.add(new Find());
         mDatas.add(new Friend());
     }
-
-
-    /**
-     * Toolbar_TextView_Event
-     * @param v
-     */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.tv_my:
-                viewPager.setCurrentItem(0);
-                break;
-            case R.id.tv_find:
-                viewPager.setCurrentItem(1);
-                break;
-            case R.id.tv_friends:
-                viewPager.setCurrentItem(2);
-                break;
-            case R.id.nav_close:
-                System.exit(0);
-                break;
-            default:
-                break;
-        }
-    }
-
 
     /**
      * 设置字体属性

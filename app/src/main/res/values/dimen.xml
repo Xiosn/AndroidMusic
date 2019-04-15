@@ -12,4 +12,5 @@
     <dimen name="find_button_width">65dp</dimen>
     <dimen name="find_button_height">25dp</dimen>
     <dimen name="my_icon">15dp</dimen>
+    <dimen name="margin_login_Size">30dp</dimen>
 </resources>

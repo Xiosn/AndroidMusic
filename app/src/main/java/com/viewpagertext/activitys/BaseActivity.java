@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+
 public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -12,6 +13,10 @@ public class BaseActivity extends AppCompatActivity {
         changeStatusBarTextImgColor(true);
     }
 
+    /**
+     *
+     * @param isBlack
+     */
     public void changeStatusBarTextImgColor(boolean isBlack) {
         if (isBlack) {
             //设置状态栏黑色字体

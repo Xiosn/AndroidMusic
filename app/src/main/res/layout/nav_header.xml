@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-
-    <!-- header -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="180dp">
-
-        <ImageView
-            android:id="@+id/iv_header_icon"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/nav_icon"/>
+    android:layout_height="180dp"
+    android:orientation="vertical"
+    android:background="@mipmap/banner1"
+    android:fitsSystemWindows="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -30,7 +19,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 app:riv_border_width="2dp"
-                android:src="@mipmap/nav_icon"
+                android:src="@mipmap/rabbit"
                 app:riv_oval="true"/>
 
             <TextView
@@ -40,7 +29,6 @@
                 android:textColor="@color/white"
                 android:layout_marginTop="15dp"
                 android:textSize="@dimen/nav_Size"
-                android:text="用户名"/>
+                android:text="点击登录"/>
         </LinearLayout>
     </FrameLayout>
-</LinearLayout>
