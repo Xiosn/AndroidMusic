@@ -3,10 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="@dimen/dp_180"
     android:orientation="vertical"
-    android:background="@mipmap/banner1"
-    android:fitsSystemWindows="true">
+    android:background="@mipmap/banner1">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -16,9 +15,9 @@
             android:gravity="center">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                app:riv_border_width="2dp"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="@dimen/dp_70"
+                app:riv_border_width="@dimen/dp_2"
                 android:src="@mipmap/rabbit"
                 app:riv_oval="true"/>
 
@@ -27,8 +26,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:layout_marginTop="15dp"
-                android:textSize="@dimen/nav_Size"
-                android:text="点击登录"/>
+                android:layout_marginTop="@dimen/dp_15"
+                android:textSize="@dimen/sp_14"
+                android:text="@string/Login"/>
         </LinearLayout>
     </FrameLayout>

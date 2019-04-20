@@ -3,11 +3,14 @@ package com.viewpagertext.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
-
 import com.makeramen.roundedimageview.RoundedImageView;
 
 /**
- * 自定义ImageView的宽高，使其高=宽
+ * <pre>
+ *      author : 小龙虾
+ *      time   : 2019/04/19
+ *      desc   :自定义ImageView的宽高，使其高=宽
+ * </pre
  */
 public class MyRoundedImageView extends RoundedImageView {
 

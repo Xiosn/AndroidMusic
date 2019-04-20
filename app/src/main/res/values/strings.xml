@@ -1,3 +1,35 @@
 <resources>
-    <string name="app_name">ViewPagerText</string>
+
+    <!--应用名称-->
+    <string name="app_name">字节音乐</string>
+
+
+    <!--启动页-->
+    <string name="StartWelcome">玩音乐，玩出精彩</string>
+
+
+    <!--标题栏-->
+    <string name="My">我的</string>
+    <string name="Find">发现</string>
+    <string name="Friend">朋友</string>
+
+    <!--发现页-->
+    <string name="Everyday">每日推荐</string>
+    <string name="Song_Sheet">歌单</string>
+    <string name="Ranking_List">排行榜</string>
+    <string name="Everyday_Song_Sheet">推荐歌单</string>
+    <string name="Song_Square">歌单广场</string>
+
+    <!--我的-->
+    <string name="LocalMusic">本地音乐</string>
+    <string name="Down_Manager">下载管理</string>
+
+    <!--侧边栏-->
+    <string name="Login">点击登录</string>
+    <string name="Update_Pwd">修改密码</string>
+    <string name="Close">退出</string>
+
+    <!--底部提示语-->
+    <string name="Bottom_Tips">--万物皆有底线--</string>
+
 </resources>

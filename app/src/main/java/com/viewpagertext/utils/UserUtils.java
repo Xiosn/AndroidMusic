@@ -5,6 +5,16 @@ import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.widget.TextView;
 
+
+
+/**
+ * <pre>
+ *     author : 小龙虾
+ *     time   : 2019/04/19
+ *     desc   : 字体通用属性
+ * </pre>
+ */
+
 public class UserUtils {
 
 

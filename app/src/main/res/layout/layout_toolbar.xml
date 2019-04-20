@@ -11,11 +11,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/colorPrimary"
-        android:background="@color/white"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:navigationIcon="@mipmap/nav_menu"
-        android:fitsSystemWindows="true">
+        app:navigationIcon="@mipmap/nav_menu">
 
 
         <!-- Toolbar中间布局 -->
@@ -33,34 +31,34 @@
                     android:id="@+id/tv_my"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/titleMarginSize"
-                    android:layout_marginRight="@dimen/titleMarginSize"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:textColor="@color/gray_ccccc"
-                    android:textSize="@dimen/titleTextSize"
-                    android:text="我的"/>
+                    android:textSize="@dimen/sp_16"
+                    android:text="@string/My"/>
 
                 <TextView
                     android:id="@+id/tv_find"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/titleMarginSize"
-                    android:layout_marginRight="@dimen/titleMarginSize"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:textColor="@color/gray_ccccc"
-                    android:textSize="@dimen/titleTextSize"
-                    android:text="发现"/>
+                    android:textSize="@dimen/sp_16"
+                    android:text="@string/Find"/>
 
                 <TextView
                     android:id="@+id/tv_friends"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/titleMarginSize"
-                    android:layout_marginRight="25dp"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_25"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:textColor="@color/gray_ccccc"
-                    android:textSize="@dimen/titleTextSize"
-                    android:text="朋友"/>
+                    android:textSize="@dimen/sp_16"
+                    android:text="@string/Friend"/>
 
             </LinearLayout>
         </HorizontalScrollView>

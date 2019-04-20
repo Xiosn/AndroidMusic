@@ -1,5 +1,6 @@
 package com.viewpagertext.activitys;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -7,24 +8,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.viewpagertext.R;
 import com.viewpagertext.adapters.FindFragmentStatePagerAdapter;
 import com.viewpagertext.fragments.Find;
 import com.viewpagertext.fragments.Friend;
 import com.viewpagertext.fragments.My;
 import com.viewpagertext.utils.UserUtils;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,24 +68,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
                 System.exit(0);
                 break;
             case R.id.username:
-                AlertDialog.Builder builder=new AlertDialog.Builder(this);
-                LayoutInflater inflater=getLayoutInflater();
-                View layout=inflater.inflate(R.layout.login_dialog,null);//载入布局
-                builder.setView(layout);
-                View sina_login=layout.findViewById(R.id.sina_login);
-                sina_login.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(),"登录",Toast.LENGTH_SHORT).show();
-                    }
-                });
-                builder.create().show();
+                Intent intent=new Intent(this,LoginActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
         }
     }
 
+    
     /**
      * 动态加载nav头布局
      */

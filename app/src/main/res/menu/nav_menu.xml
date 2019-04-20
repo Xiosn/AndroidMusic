@@ -3,7 +3,7 @@
 <group android:checkableBehavior="single">
     <item
         android:id="@+id/update_pwd"
-        android:title="修改密码"
+        android:title="@string/Update_Pwd"
         android:icon="@drawable/nav_update_pwd_icon" />
 </group>
 </menu>

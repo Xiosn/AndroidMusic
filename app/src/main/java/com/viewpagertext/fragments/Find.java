@@ -52,7 +52,7 @@ public class Find extends Fragment {
     public void initRvGird(View view){
         rv_Grid=view.findViewById(R.id.rv_Grid);
         rv_Grid.setLayoutManager(new GridLayoutManager(getActivity(),3));
-        rv_Grid.addItemDecoration(new GridSpaceitemDecoration(getResources().getDimensionPixelSize(R.dimen.albumMarginSize),rv_Grid));
+        rv_Grid.addItemDecoration(new GridSpaceitemDecoration(getResources().getDimensionPixelSize(R.dimen.dp_5),rv_Grid));
         rv_Grid.setFocusable(false);//获取焦点
         musicGridAdapter=new MusicGridAdapter(getActivity());
         rv_Grid.setAdapter(musicGridAdapter);

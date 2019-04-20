@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--高亮-->
+    <item
+        android:state_focused="true"
+        android:drawable="@drawable/my_icon_h"/>
+
+    <!--按下-->
+    <item
+        android:state_pressed="true"
+        android:drawable="@drawable/my_icon_h"/>
+
+    <!--选择-->
+    <item
+        android:state_selected="true"
+        android:drawable="@drawable/my_icon_h"/>
+
+    <!--默认-->
+    <item android:drawable="@drawable/btn_nav_close_n"/>
+</selector>

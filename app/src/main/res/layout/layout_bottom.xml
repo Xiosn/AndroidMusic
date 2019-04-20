@@ -3,17 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="@dimen/dp_56"
     android:layout_alignParentBottom="true"
     android:background="@color/white95"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:riv_border_width="1dp"
-        android:layout_margin="5dp"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        app:riv_border_width="@dimen/dp_1"
+        android:layout_margin="@dimen/dp_5"
         android:src="@mipmap/nav_icon"
         app:riv_oval="true"/>
     <LinearLayout
@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/findSize"
+            android:textSize="@dimen/sp_12"
             android:textColor="@color/gray"
             android:text="周杰伦"/>
     </LinearLayout>
@@ -37,7 +37,7 @@
     <com.makeramen.roundedimageview.RoundedImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/icon_text_Size"
+        android:layout_marginRight="@dimen/dp_20"
         android:src="@mipmap/pause"/>
 
 </LinearLayout>

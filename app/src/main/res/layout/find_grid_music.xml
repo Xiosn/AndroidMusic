@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginBottom="@dimen/playNumImgSize">
+    android:layout_marginBottom="@dimen/dp_12">
 
 
     <FrameLayout
@@ -18,18 +18,18 @@
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
             android:src="@mipmap/nav_icon"
-            app:riv_corner_radius="10dp"
+            app:riv_corner_radius="@dimen/dp_5"
             app:riv_oval="false"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="right|center_vertical"
-            android:layout_margin="@dimen/albumMarginSize">
+            android:layout_margin="@dimen/dp_5">
 
             <ImageView
-                android:layout_width="@dimen/playNumImgSize"
-                android:layout_height="@dimen/playNumImgSize"
+                android:layout_width="@dimen/dp_12"
+                android:layout_height="@dimen/dp_12"
                 android:src="@mipmap/play_num"/>
 
             <TextView
@@ -37,9 +37,9 @@
                 android:layout_height="wrap_content"
                 android:text="10.00万"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/playNumSize"
+                android:textSize="@dimen/dp_12"
                 android:textStyle="bold"
-                android:layout_marginLeft="@dimen/albumMarginSize"/>
+                android:layout_marginLeft="@dimen/dp_5"/>
         </LinearLayout>
     </FrameLayout>
 
@@ -48,6 +48,6 @@
         android:layout_height="wrap_content"
         android:text="歌单名称"
         android:textColor="@color/gray"
-        android:textSize="@dimen/infoSize"
-        android:padding="@dimen/albumMarginSize" />
+        android:textSize="@dimen/sp_14"
+        android:padding="@dimen/dp_5" />
 </LinearLayout>
