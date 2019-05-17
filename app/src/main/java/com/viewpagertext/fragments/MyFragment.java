@@ -9,7 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.viewpagertext.R;
 
-public class My extends Fragment {
+/**
+ * name:小龙虾
+ * time:2019.5.4
+ * Type:我的页Fragment
+ */
+
+public class MyFragment extends Fragment {
 
     @Nullable
     @Override

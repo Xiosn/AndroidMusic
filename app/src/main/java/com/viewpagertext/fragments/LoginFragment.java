@@ -11,6 +11,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.viewpagertext.R;
 
+/**
+ * name:小龙虾
+ * time:2019.5.4
+ * Type:登录页Fragment
+ */
+
 public class LoginFragment extends Fragment {
 
 
@@ -36,17 +42,4 @@ public class LoginFragment extends Fragment {
 
         return v;
     }
-
-//    protected void initView(){
-//        TextView loginBtn=getActivity().findViewById(R.id.loginBtn);
-//        loginBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                transaction.replace(R.id.frameContain, new RegisterFragment());
-//                transaction.commit();
-//            }
-//        });
-//    }
-
 }

@@ -2,8 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 <group android:checkableBehavior="single">
     <item
+        android:id="@+id/AppHome"
+        android:title="@string/AppHome"
+        android:icon="@mipmap/nav_home" />
+
+    <item
         android:id="@+id/update_pwd"
         android:title="@string/Update_Pwd"
-        android:icon="@drawable/nav_update_pwd_icon" />
+        android:icon="@mipmap/nav_key" />
+    <item
+        android:id="@+id/about"
+        android:title="@string/About"
+        android:icon="@mipmap/nav_about" />
 </group>
 </menu>

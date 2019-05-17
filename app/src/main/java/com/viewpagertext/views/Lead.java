@@ -7,13 +7,10 @@ import android.os.Build;
 import android.view.animation.LinearInterpolator;
 
 /**
- * <pre>
- *     author : 小龙虾
- *     time   : 2019/04/19
- *     desc   : 动画实现的效果
- * </pre>
+ * name: 小龙虾
+ * time: 2019/04/19
+ * Type: 动画实现的效果
  */
-
 
 public class Lead {
     private AnimatorSet animatorSet;
@@ -47,7 +44,7 @@ public class Lead {
                 ObjectAnimator maskYAnimator = ObjectAnimator.ofFloat(textView, "maskY", h / 2, -h / 2);
                 maskYAnimator.setRepeatCount(ValueAnimator.INFINITE);
                 maskYAnimator.setRepeatMode(ValueAnimator.REVERSE);
-                maskYAnimator.setDuration(mDuration);
+                maskYAnimator.setDuration(2850);
                 maskYAnimator.setStartDelay(0);
 
                 // now play both animations together

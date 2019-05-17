@@ -7,6 +7,12 @@ import android.widget.ImageView;
 import com.viewpagertext.R;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
 
+/**
+ * name:小龙虾
+ * time:2019.5.4
+ * Type:发现页Banner轮播图适配器
+ */
+
 public class  BannerViewHolder implements MZViewHolder<Integer> {
 
     private ImageView imageView;

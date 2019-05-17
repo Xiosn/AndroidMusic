@@ -27,9 +27,33 @@
     <!--侧边栏-->
     <string name="Login">点击登录</string>
     <string name="Update_Pwd">修改密码</string>
+    <string name="About">关于软件</string>
+    <string name="AppHome">项目主页</string>
     <string name="Close">退出</string>
 
     <!--底部提示语-->
     <string name="Bottom_Tips">--万物皆有底线--</string>
 
+    <string name="ap_name">YunMusicUI</string>
+    <string name="title">云音乐新歌榜</string>
+
+    <array name="books">
+        <item>《三重门》</item>
+        <item>《零下一度》 </item>
+        <item>《像少年啦飞驰》</item>
+        <item>《毒》</item>
+        <item>《通稿2003》</item>
+        <item>《韩寒五年》</item>
+        <item>《就这么漂来漂去》</item>
+        <item>《一座城池》</item>
+        <item>《寒-18禁》</item>
+        <item>《毒2》</item>
+        <item>《光荣日》</item>
+        <item>《杂的文》</item>
+        <item>《他的国》</item>
+        <item>《草》</item>
+        <item>《可爱的洪水猛兽》</item>
+        <item>《1988：我想和这个世界谈谈》</item>
+        <item>《独唱团》</item>
+    </array>
 </resources>

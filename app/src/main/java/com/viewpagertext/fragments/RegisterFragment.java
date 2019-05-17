@@ -9,8 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.viewpagertext.R;
+
+/**
+ * name:小龙虾
+ * time:2019.5.4
+ * Type:注册页Fragment
+ */
 
 public class RegisterFragment extends Fragment {
 
@@ -28,15 +33,11 @@ public class RegisterFragment extends Fragment {
                 fm.beginTransaction()
                         //替换为LoginFragment
                         .replace(R.id.frameContain,new LoginFragment())
-//                        .addToBackStack(null)
                         .commit();
             }
         });
 
         return v;
     }
-//
-//    public static Fragment newInstance() {
-//        return new RegisterFragment();
-//    }
+
 }

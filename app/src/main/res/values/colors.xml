@@ -5,21 +5,15 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
     <color name="white_ff">#b0f1ffff</color>
-    <color name="black_ff">#b01a1a1a</color>
     <color name="transparent">#00000000</color><!--透明色 -->
     <color name="gray">#808080</color><!--灰色 -->
-
-
     <color name="black">#000000</color><!--黑色 -->
     <color name="gray_cc">#cccccc</color><!--灰色cc -->
-    <color name="gray_cccc">#a0f3ecec</color><!--灰色cc -->
-    <color name="gray_8f">#8f8f8f</color><!--灰色8f -->
     <color name="gray_ccccc">#666666</color>
-    <color name="titleColor">#333333</color>
     <color name="white95">#F2ffffff</color>
     <color name="icon_blue">#1296db</color>
-    <color name="my_icon">#fafafa</color>
-
-
-
+    <color name="my_icon">#fafafa</color> <!--布局默认背景色-->
+    <color name="tabBackground">#777D7D7D</color>
+    <color name="colorTheme">#ffce3d3a</color>
+    <color name="colorContent">#ff333333</color>
 </resources>

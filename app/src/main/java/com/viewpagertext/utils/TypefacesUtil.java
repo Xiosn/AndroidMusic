@@ -7,11 +7,9 @@ import android.util.Log;
 import java.util.Hashtable;
 
 /**
- * <pre>
- *     author : 小龙虾
- *     time   : 2019/04/19
- *     desc   : 字体转换的工具
- * </pre>
+ * name: 小龙虾
+ * time: 2019/04/19
+ * Type: 字体转换的工具
  */
 
 

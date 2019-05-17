@@ -7,12 +7,18 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 import java.util.List;
 
-public class FindFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
+/**
+ * name:小龙虾
+ * time:2019.5.4
+ * Type:主页ViewPager适配器
+ */
+
+public class HomeFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> mDatas;
 
 
-    public FindFragmentStatePagerAdapter(FragmentManager fm, List<Fragment> mDatas) {
+    public HomeFragmentStatePagerAdapter(FragmentManager fm, List<Fragment> mDatas) {
         super(fm);
         this.mDatas=mDatas;
     }

@@ -20,9 +20,8 @@
     <FrameLayout
         android:id="@+id/frameContain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
-    </FrameLayout>
 
     <com.github.glomadrian.grav.GravView
         android:id="@+id/grav"

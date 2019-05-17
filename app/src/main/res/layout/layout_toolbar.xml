@@ -33,7 +33,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:textColor="@color/gray_ccccc"
                     android:textSize="@dimen/sp_16"
                     android:text="@string/My"/>
@@ -44,7 +43,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:textColor="@color/gray_ccccc"
                     android:textSize="@dimen/sp_16"
                     android:text="@string/Find"/>
@@ -55,7 +53,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_25"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:textColor="@color/gray_ccccc"
                     android:textSize="@dimen/sp_16"
                     android:text="@string/Friend"/>

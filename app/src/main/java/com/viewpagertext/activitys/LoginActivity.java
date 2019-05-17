@@ -1,13 +1,16 @@
 package com.viewpagertext.activitys;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-
 import com.viewpagertext.R;
 import com.viewpagertext.fragments.LoginFragment;
+
+/**
+ * name:小龙虾
+ * time:2019.5.4
+ */
 
 public class LoginActivity extends BaseActivity{
 

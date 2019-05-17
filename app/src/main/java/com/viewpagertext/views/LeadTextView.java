@@ -14,11 +14,9 @@ import android.util.AttributeSet;
 import com.viewpagertext.R;
 
 /**
- * <pre>
- *     author : 小龙虾
- *     time   : 2019/04/19
- *     desc   : 自定义TextView,可实现水波纹升浪
- * </pre>
+ * name : 小龙虾
+ * time : 2019/04/19
+ * type : 自定义TextView,可实现水波纹升浪
  */
 
 

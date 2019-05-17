@@ -6,9 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+
 /**
- * 自定义分割线
+ * name:小龙虾
+ * time:2019.5.4
+ * Type:自定义分割线
  */
+
 public class GridSpaceitemDecoration extends RecyclerView.ItemDecoration {
 
     private int mSpace;

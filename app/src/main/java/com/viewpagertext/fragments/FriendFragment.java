@@ -7,10 +7,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.viewpagertext.R;
 
-public class Friend extends Fragment {
+
+/**
+ * name:小龙虾
+ * time:2019.5.4
+ * Type:朋友页Fragment
+ */
+
+public class FriendFragment extends Fragment {
 
     @Nullable
     @Override

@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 
+/**
+ * name:小龙虾
+ * time:2019.5.4
+ */
 
 public class BaseActivity extends AppCompatActivity {
     @Override

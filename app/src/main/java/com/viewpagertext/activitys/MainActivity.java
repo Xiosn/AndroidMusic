@@ -15,22 +15,29 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.viewpagertext.R;
-import com.viewpagertext.adapters.FindFragmentStatePagerAdapter;
-import com.viewpagertext.fragments.Find;
-import com.viewpagertext.fragments.Friend;
-import com.viewpagertext.fragments.My;
+import com.viewpagertext.adapters.HomeFragmentStatePagerAdapter;
+import com.viewpagertext.fragments.FindFragment;
+import com.viewpagertext.fragments.FriendFragment;
+import com.viewpagertext.fragments.MyFragment;
 import com.viewpagertext.utils.UserUtils;
+
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * name:小龙虾
+ * time:2019.5.4
+ */
+
 
 public class MainActivity extends BaseActivity implements View.OnClickListener,ViewPager.OnPageChangeListener{
 
     private DrawerLayout mDrawerLayout;
     private Toolbar toolbar;
     private ViewPager viewPager;
-    private FindFragmentStatePagerAdapter myFragmentStatePagerAdapter;
+    private HomeFragmentStatePagerAdapter myFragmentStatePagerAdapter;
     private List<Fragment> mDatas;
-    private TextView tv_my,tv_find,tv_friends,nav_close,username;
+    private TextView tv_my,tv_find,tv_friends,nav_close,username,btn_song_name,btn_singer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +48,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         initIdListener();//获取控件实例
         header_click();//动态加载nav头布局
 
-        myFragmentStatePagerAdapter=new FindFragmentStatePagerAdapter(getSupportFragmentManager(),mDatas);
+        myFragmentStatePagerAdapter=new HomeFragmentStatePagerAdapter(getSupportFragmentManager(),mDatas);
         viewPager.setAdapter(myFragmentStatePagerAdapter);
         viewPager.setCurrentItem(1);//默认首次进入的页面
         setTitleTextViewColor(viewPager.getCurrentItem());//首次加载viewPager 页面对应的button的文字颜色
+
     }
 
 
@@ -114,6 +122,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         nav_close=findViewById(R.id.nav_close);
         nav_close.setOnClickListener(this);
 
+        btn_song_name=findViewById(R.id.btn_song_name);
+        btn_singer=findViewById(R.id.btn_singer);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
     }
 
 
@@ -148,9 +161,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
      */
     private void initData(){
         mDatas = new ArrayList<>();
-        mDatas.add(new My());
-        mDatas.add(new Find());
-        mDatas.add(new Friend());
+        mDatas.add(new MyFragment());
+        mDatas.add(new FindFragment());
+        mDatas.add(new FriendFragment());
     }
 
     /**

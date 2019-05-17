@@ -3,17 +3,19 @@
     package="com.viewpagertext">
 
     <application
+        android:name=".app.ScrollShapeUIApplication"
         android:allowBackup="true"
         android:icon="@mipmap/bytemusic"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".activitys.PlayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyScrollPage"/>
         <activity android:name=".activitys.LoginActivity" />
         <activity android:name=".activitys.MainActivity" />
-
-
         <activity
             android:name=".activitys.WelcomeActivity"
             android:icon="@mipmap/bytemusic">
@@ -23,7 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

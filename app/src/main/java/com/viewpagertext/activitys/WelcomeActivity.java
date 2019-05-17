@@ -4,14 +4,17 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
-
 import com.viewpagertext.R;
 import com.viewpagertext.utils.TypefacesUtil;
 import com.viewpagertext.views.Lead;
 import com.viewpagertext.views.LeadTextView;
 
-import java.util.Timer;
-import java.util.TimerTask;
+/**
+ * name:小龙虾
+ * time:2019.5.4
+ * Type:启动欢迎页
+ */
+
 
 public class WelcomeActivity extends AppCompatActivity {
 

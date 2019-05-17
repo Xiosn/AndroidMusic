@@ -8,11 +8,9 @@ import android.widget.TextView;
 
 
 /**
- * <pre>
- *     author : 小龙虾
- *     time   : 2019/04/19
- *     desc   : 字体通用属性
- * </pre>
+ * name: 小龙虾
+ * time: 2019/04/19
+ * Type: 字体通用属性
  */
 
 public class UserUtils {

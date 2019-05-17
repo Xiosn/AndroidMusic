@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@mipmap/nav_icon"
+            android:src="@mipmap/play_head"
             app:riv_corner_radius="@dimen/dp_5"
             app:riv_oval="false"/>
         <LinearLayout
@@ -44,6 +44,7 @@
     </FrameLayout>
 
     <TextView
+        android:id="@+id/grid_song_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="歌单名称"
