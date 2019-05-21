@@ -1,67 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <!--本地音乐-->
+<layout>
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:clickable="true"
-        android:background="@drawable/my_icon_select">
-        <com.viewpagertext.views.MyRoundedImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_15"
-            android:src="@mipmap/my_local"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <RelativeLayout
+        <!--本地音乐-->
+        <LinearLayout
+            android:id="@+id/loadMusic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_alignParentLeft="true"
-            android:text="@string/LocalMusic" />
-            <View
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:background="@drawable/my_icon_select">
+            <com.viewpagertext.views.MyRoundedImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_15"
+                android:src="@mipmap/my_local"/>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_0_1"
-                android:layout_alignParentBottom="true"
-                android:background="@color/gray_cc"/>
-        </RelativeLayout>
-    </LinearLayout>
-
-    <!--下载管理-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:clickable="true"
-        android:background="@drawable/my_icon_select">
-        <com.viewpagertext.views.MyRoundedImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_15"
-            android:src="@mipmap/my_download"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                android:layout_height="match_parent">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_alignParentLeft="true"
-                android:text="@string/Down_Manager" />
-            <View
+                android:text="@string/LocalMusic" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/gray_cc"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <!--下载管理-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:background="@drawable/my_icon_select">
+            <com.viewpagertext.views.MyRoundedImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_15"
+                android:src="@mipmap/my_download"/>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_0_1"
-                android:layout_alignParentBottom="true"
-                android:background="@color/gray_cc"/>
-        </RelativeLayout>
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/Down_Manager" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/gray_cc"/>
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</layout>

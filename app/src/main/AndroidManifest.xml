@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.viewpagertext">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".app.ScrollShapeUIApplication"
         android:allowBackup="true"
@@ -10,10 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activitys.LoadSongActivity"></activity>
         <activity
             android:name=".activitys.PlayActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyScrollPage"/>
+            android:theme="@style/MyScrollPage" />
         <activity android:name=".activitys.LoginActivity" />
         <activity android:name=".activitys.MainActivity" />
         <activity
