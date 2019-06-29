@@ -20,5 +20,5 @@
 
 网络音乐API(MessApi)：https://mrdong916.github.io/mess-api-doc/#/music/netease
 
-最终解释权归百思不得姐、MessApi所有，感谢他们的付出。
+最终解释权归百思不得姐、MessApi所有，感谢他们的付出和马老师的教导。
 
