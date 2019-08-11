@@ -1,41 +1,57 @@
 package com.viewpagertext.fragments;
 
-import android.databinding.DataBindingUtil;
-import android.os.Build;
+import android.content.Intent;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.transition.ArcMotion;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.view.animation.Interpolator;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.viewpagertext.R;
 import com.viewpagertext.adapters.ListRecAdapter;
+import com.viewpagertext.constructor.ListToPlayEvent;
 import com.viewpagertext.constructor.MessageEvent;
 import com.viewpagertext.databinding.ActivityMovieDetailBinding;
+import com.viewpagertext.json.ListFragmentSongMusics;
 import com.viewpagertext.utils.CommonUtils;
-import com.viewpagertext.utils.CustomChangeBounds;
+import com.viewpagertext.utils.HttpUtil;
 import com.viewpagertext.utils.StatusBarUtil;
+import com.viewpagertext.utils.TimeUtil;
 import com.viewpagertext.views.MyNestedScrollView;
+import com.viewpagertext.views.MyRoundedImageView;
+
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import jp.wasabeef.glide.transformations.BlurTransformation;
+import okhttp3.Call;
+import okhttp3.Response;
+import static com.viewpagertext.adapters.MusicGridAdapter.FindImgUrlPath;
+import static com.viewpagertext.adapters.MusicGridAdapter.FindSongsId;
 
 /**
  * name:小龙虾
@@ -45,19 +61,21 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class ListFragment extends Fragment {
 
-
-    public final static String IMAGE_URL_LARGE ="https://img3.doubanio.com/view/subject/m/public/s4477716.jpg";
-    public final static String IMAGE_URL_MEDIUM = "https://graph.baidu.com/resource/1065f6950f399b9f27a8a01557811529.jpg";
-    public final static String IMAGE_URL_SMALL = "https://img3.doubanio.com/view/subject/s/public/s4477716.jpg";
     public final static String PARAM = "isRecyclerView";
-    // 这个是高斯图背景的高度
-    private int imageBgHeight;
-    // 在多大范围内变色
-    private int slidingDistance;
+    private int imageBgHeight;// 这个是高斯图背景的高度
+    private int slidingDistance; // 在多大范围内变色
     private boolean isRecyclerView;
     private ActivityMovieDetailBinding binding;
-    private List<String> mDatas;
+    private ArrayList<ListFragmentSongMusics.DataBean> mData=new ArrayList<>();
+    private ListRecAdapter adapter;
     private ViewPager viewPager;
+    private String GetFindSongsId="http://v1.itooi.cn/netease/songList?&format=1&id="+FindSongsId;
+
+//    public final static String IMAGE_URL_LARGE ="https://img3.doubanio.com/view/subject/m/public/s4477716.jpg";
+//    public final static String IMAGE_URL_MEDIUM ="https://img3.doubanio.com/view/subject/s/public/s4477716.jpg";
+//    public final static String IMAGE_URL_SMALL = "https://img3.doubanio.com/view/subject/s/public/s4477716.jpg";
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding=DataBindingUtil.inflate(inflater, R.layout.activity_movie_detail, container, false);
@@ -65,85 +83,186 @@ public class ListFragment extends Fragment {
         if (getActivity().getIntent() != null) {
             isRecyclerView = getActivity().getIntent().getBooleanExtra(PARAM, true);
         }
-
+        viewPager=getActivity().findViewById(R.id.play_viewpager);
         setTitleBar();
         setPicture();
         initSlideShapeTheme();
-
-
-        // RecyclerView列表显示
-        setAdapter();
-
-        viewPager=getActivity().findViewById(R.id.play_viewpager);
+        sendRequestWithOkHttp();//请求网络
+        setAdapter();// RecyclerView列表显示
         return binding.getRoot();
     }
 
+    private void sendRequestWithOkHttp(){
+        HttpUtil.sendOkHttpRequest(GetFindSongsId,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
 
-    /**
-     * 一般图片和高斯背景图
-     */
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String ListResponseData=response.body().string();//得到服务器返回的具体内容
+                parseJSONWithGSON(ListResponseData);
+            }
+        });
+    }
+
+    public ListFragmentSongMusics parseJSONWithGSON(String jsonData){
+
+        mData.clear();
+        try {
+            JSONObject jsonObject=new JSONObject(jsonData);
+            JSONArray jsonArray=jsonObject.getJSONArray("data");
+//            Log.d("ListFragment","Data共有多少条数据"+jsonArray.length());
+            for (int i=0;i<jsonArray.length();i++){
+                JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                String pic = jsonObject1.getString("pic");
+                String name=jsonObject1.getString("name");
+                String singer=jsonObject1.getString("singer");
+                String id = jsonObject1.getString("id");
+                int number=i+1;
+                long time=jsonObject1.getLong("time");
+                String lrc=jsonObject1.getString("lrc");
+                String url=jsonObject1.getString("url");
+                ListFragmentSongMusics.DataBean ld=new ListFragmentSongMusics.DataBean();
+                ld.setPic(pic);
+                ld.setName(name);
+                ld.setSinger(singer);
+                ld.setNumber(number+"");
+                ld.setId(id);
+                ld.setTime(time);
+                ld.setLrc(lrc);
+                ld.setUrl(url);
+                mData.add(ld);
+            }
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(),"获取服务器数据失败",Toast.LENGTH_SHORT).show();
+        }
+        return null;
+    }
+    //主图图片和高斯背景图
     private void setPicture() {
-//        Glide.with(getActivity())
-//                .load(IMAGE_URL_LARGE)
-//                .override((int)CommonUtils.getDimens(R.dimen.dp_140), (int) CommonUtils.getDimens(R.dimen.dp_140))
-//                .into(binding.include.ivOnePhoto);
+        Glide.with(getActivity())
+                .load(FindImgUrlPath)
+                .override((int)CommonUtils.getDimens(R.dimen.dp_140), (int) CommonUtils.getDimens(R.dimen.dp_140))
+                .into(binding.include.ivOnePhoto);
 
         // "14":模糊度；"3":图片缩放3倍后再进行模糊
         Glide.with(getActivity())
-                .load(R.mipmap.stackblur_default)
+                .load(FindImgUrlPath)
                 .error(R.mipmap.stackblur_default)
                 .placeholder(R.mipmap.stackblur_default)
 //                .crossFade(3000)//动画效果时长
                 .dontAnimate()//取消动画效果
+                .bitmapTransform(new BlurTransformation(getActivity(), 200, 3))// 设置高斯模糊
 //                .bitmapTransform(new BlurTransformation(getActivity(), 14, 3))
                 .into(binding.include.imgItemBg);
     }
 
-    /**
-     * 接收FindFragment中RecyclerView的Item消息类
-     * @param event
-     */
+    //接收FindFragment中RecyclerView的Item消息类
     @Subscribe(threadMode = ThreadMode.POSTING,sticky = true)
     public void messageEventBus(MessageEvent event){
-         binding.titleToolBar.setTitle(event.getFindGridItemName());
-         binding.include.ivOnePhoto.setImageBitmap(event.getImage());
+        binding.include.tvOneCity.setText(event.getFindGridItemName());
     }
 
-    /**
-     * 设置RecyclerView
-     */
+
+     // 设置RecyclerView
     private void setAdapter() {
         binding.tvTxt.setVisibility(View.GONE);
         binding.xrvList.setVisibility(View.VISIBLE);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         binding.xrvList.setLayoutManager(mLayoutManager);
-        // 需加，不然滑动不流畅
-        binding.xrvList.setNestedScrollingEnabled(false);
+        binding.xrvList.setNestedScrollingEnabled(false);//需加，不然滑动不流畅
         binding.xrvList.setHasFixedSize(false);
-        initData();
-        final ListRecAdapter adapter = new ListRecAdapter(getActivity(),mDatas);
-        adapter.notifyDataSetChanged();
-
-        adapter.setOnItemClickListener(new ListRecAdapter.OnRecyclerViewItemClickListener(){
-
-            @Override
-            public void onItemClick(View view, int postion) {
-                viewPager.setCurrentItem(1);
-            }
-        });
+        adapter = new ListRecAdapter(getActivity(),mData);
         binding.xrvList.setAdapter(adapter);
+
+        // 设置item及item中控件的点击事件
+        adapter.setOnItemClickListener(MyItemClickListener);
     }
 
-    protected void initData(){
-        mDatas=new ArrayList<String>();
-        for (int i=1;i<31;i++){
-            mDatas.add(""+i);
+    //item＋item里的控件点击监听事件
+    private ListRecAdapter.OnItemClickListener MyItemClickListener = new ListRecAdapter.OnItemClickListener() {
+        BottomSheetDialog bottomSheetDialog;
+        @Override
+        public void onItemClick(View v, ListRecAdapter.ViewName viewName, final int position) {
+            String Pic= mData.get(position).getPic();
+            String Name=mData.get(position).getName();
+            String Singer=mData.get(position).getSinger();
+            String Time=TimeUtil.formatSeconds(mData.get(position).getTime());
+            String Lrc= mData.get(position).getLrc();
+            String url=mData.get(position).getUrl();
+
+            //viewName可区分item及item内部控件
+            switch (v.getId()){
+                case R.id.ListFragment_menu://子项菜单内容
+//                  Toast.makeText(getActivity(),"你点击了同意按钮"+(position+1),Toast.LENGTH_SHORT).show();
+                    View view = View.inflate(getActivity(), R.layout.list_dialog, null);
+                    MyRoundedImageView localDialogIcon= view.findViewById(R.id.list_DialogIcon);//头部歌曲图片
+                    Glide.with(getActivity()).load(Pic).into(localDialogIcon);
+                    TextView dialog_song=view.findViewById(R.id.list_dialog_song);//头部歌名
+                    dialog_song.setText(Name);
+                    TextView dialog_singer = view.findViewById(R.id.list_dialog_singer);//头部歌手
+                    dialog_singer.setText(Singer);
+                    TextView dialog_singer2 = view.findViewById(R.id.list_dialog_singer2);//歌手
+                    dialog_singer2.setText(Singer);
+                    TextView dialog_album = view.findViewById(R.id.list_dialog_album);//专辑
+                    dialog_album.setText(Name);
+                    TextView dialog_time = view.findViewById(R.id.list_dialog_time);//歌曲时长
+                    dialog_time.setText(Time);
+
+                    RelativeLayout shareMusic = view.findViewById(R.id.shareMusic);//分享按钮事件
+                    shareMusic.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent textIntent = new Intent(Intent.ACTION_SEND);
+                            textIntent.setType("text/plain");
+                            textIntent.putExtra(Intent.EXTRA_TEXT, "网易云音乐：https://v1.itooi.cn/netease/url?id="+mData.get(position).getId());
+                            startActivity(Intent.createChooser(textIntent, "分享"));
+                        }
+                    });
+                    RelativeLayout NetToPlay = view.findViewById(R.id.NetToPlay);//到播放页事件
+                    NetToPlay.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            viewPager.setCurrentItem(1);
+                            bottomSheetDialog.hide();
+                        }
+                    });
+
+                    bottomSheetDialog = new BottomSheetDialog(getActivity());
+                    bottomSheetDialog.setContentView(view);
+                    bottomSheetDialog.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//设置BottomSheetDialog圆角
+                    bottomSheetDialog.show();
+                    break;
+                case R.id.ListintoPlayPage:
+//                    Toast.makeText(getActivity(),"你点击了item按钮"+(position+1),Toast.LENGTH_SHORT).show();
+//                  发送数据到播放页
+                    EventBus.getDefault().postSticky(new ListToPlayEvent(Pic,Name,Singer,Lrc,url,Time));
+                    viewPager.setCurrentItem(1);
+                  break;
+                default:
+                    break;
+            }
         }
-    }
-    /**
-     * toolbar设置
-     */
+
+        @Override
+        public void onItemLongClick(View v) {
+
+        }
+    };
+
+    //toolbar设置
     private void setTitleBar() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(binding.titleToolBar);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
@@ -161,10 +280,7 @@ public class ListFragment extends Fragment {
     }
 
 
-
-    /**
-     * 初始化滑动渐变
-     */
+    //初始化滑动渐变
     private void initSlideShapeTheme() {
 
         setImgHeaderBg();
@@ -195,15 +311,13 @@ public class ListFragment extends Fragment {
     }
 
 
-    /**
-     * 加载titlebar背景,加载后将背景设为透明
-     */
+    //加载titlebar背景,加载后将背景设为透明
     private void setImgHeaderBg() {
         Glide.with(getActivity())
-                .load(ListFragment.IMAGE_URL_MEDIUM)
+                .load(FindImgUrlPath)
 //                .placeholder(R.mipmap.stackblur_default)
                 .error(R.mipmap.stackblur_default)
-                .bitmapTransform(new BlurTransformation(getActivity(), 14, 3))// 设置高斯模糊
+                .bitmapTransform(new BlurTransformation(getActivity(), 200, 3))// 设置高斯模糊
                 .listener(new RequestListener<String, GlideDrawable>() {//监听加载状态
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
@@ -233,9 +347,7 @@ public class ListFragment extends Fragment {
         slidingDistance = imageBgHeight - titleBarAndStatusHeight - (int) (CommonUtils.getDimens(R.dimen.dp_30));
     }
 
-    /**
-     * 根据页面滑动距离改变Header透明度方法
-     */
+    //根据页面滑动距离改变Header透明度方法
     private void scrollChangeHeader(int scrolledY) {
 
 //        DebugUtil.error("---scrolledY:  " + scrolledY);
@@ -266,13 +378,11 @@ public class ListFragment extends Fragment {
         binding.xrvList.setFocusable(false);
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);//反注册
     }
-
 
 }
 

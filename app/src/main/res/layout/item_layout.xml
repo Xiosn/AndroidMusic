@@ -1,49 +1,60 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/item_name"
-        android:layout_width="@dimen/dp_56"
-        android:layout_height="@dimen/dp_56"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="0dp"
-        android:gravity="center"
-        android:text="1" />
-
+<layout>
     <LinearLayout
-        android:id="@+id/song_and_singer"
-        android:layout_width="293dp"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/item_name"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_56"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/Listt_postion"
+                android:layout_width="@dimen/dp_56"
+                android:layout_height="@dimen/dp_56"
+                android:gravity="center"
+                android:text="编号"/>
 
-        <TextView
-            android:id="@+id/song_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="有何不可" />
+            <LinearLayout
+                android:id="@+id/ListintoPlayPage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/song_singer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="许嵩"
-            android:textSize="@dimen/sp_12" />
+                <com.viewpagertext.views.MarqueeTextView
+                    android:id="@+id/Listt_song"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="歌曲"
+                    style="@style/TextView"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14" />
+
+                <com.viewpagertext.views.MarqueeTextView
+                    android:id="@+id/Listt_singer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextView"
+                    android:text="歌手"
+                    android:textSize="@dimen/sp_12" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ListFragment_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/dp_20"
+                android:paddingLeft="@dimen/dp_20"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_10"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/localmenu"/>
+
+        </LinearLayout>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/playorpause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:padding="@dimen/dp_20"
-        android:src="@mipmap/pause" />
-</RelativeLayout>
+</layout>

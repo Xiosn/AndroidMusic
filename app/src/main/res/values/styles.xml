@@ -33,10 +33,27 @@
         <item name="selectableItemBackground">@drawable/toolbarItemBackground</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
+
     <style name="MyScrollPage" parent="Theme.AppCompat.Light.NoActionBar">
         <!--选中状态icon的颜色和字体颜色-->
         <item name="colorPrimary">@color/colorTheme</item>
         <item name="colorPrimaryDark">@color/colorTheme</item>
         <item name="colorAccent">@color/colorTheme</item>
     </style>
+
+    <!--本地音乐BottomSheetDialog子项文字宽高-->
+    <style name="LocalMusicButtonSheetDialogTextWidthHeight">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--MarqueeTextView走马灯效果；单行显示-->
+    <style name="TextView">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:focusable">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
 </resources>

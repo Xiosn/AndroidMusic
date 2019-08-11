@@ -1,7 +1,5 @@
 package com.viewpagertext.constructor;
 
-import android.graphics.drawable.Drawable;
-
 public class Song {
 
     public String song;//歌曲名
@@ -9,6 +7,6 @@ public class Song {
     public long size;//歌曲所占空间大小
     public int duration;//歌曲时间长度
     public String path;//歌曲地址
-    public Drawable draw;//歌曲按钮图片
-
+    public String album;//专辑
+    public long albumId;//专辑海报
 }

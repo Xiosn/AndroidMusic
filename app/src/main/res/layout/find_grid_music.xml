@@ -33,6 +33,7 @@
                 android:src="@mipmap/play_num"/>
 
             <TextView
+                android:id="@+id/find_songs_play_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10.00万"
@@ -40,6 +41,13 @@
                 android:textSize="@dimen/dp_12"
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/dp_5"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="万"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dp_12"
+                android:textStyle="bold" />
         </LinearLayout>
     </FrameLayout>
 
@@ -48,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="歌单名称"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/sp_14"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_12"
         android:padding="@dimen/dp_5" />
 </LinearLayout>

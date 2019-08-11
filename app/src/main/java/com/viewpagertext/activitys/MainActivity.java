@@ -3,12 +3,14 @@ package com.viewpagertext.activitys;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.core.view.GravityCompat;
+import androidx.viewpager.widget.ViewPager;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +50,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         initIdListener();//获取控件实例
         header_click();//动态加载nav头布局
 
+
         myFragmentStatePagerAdapter=new HomeFragmentStatePagerAdapter(getSupportFragmentManager(),mDatas);
         viewPager.setAdapter(myFragmentStatePagerAdapter);
         viewPager.setCurrentItem(1);//默认首次进入的页面
@@ -84,12 +87,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         }
     }
 
+
     
     /**
      * 动态加载nav头布局
      */
     private void header_click(){
         NavigationView navigationView=findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.AppHome:
+                        Intent intent=new Intent(MainActivity.this,ProjectHomeActivity.class);
+                        startActivity(intent);
+                }
+
+                return true;
+            }
+        });
+
         View nav_header=navigationView.inflateHeaderView(R.layout.nav_header);
         username=nav_header.findViewById(R.id.username);
         username.setOnClickListener(this);

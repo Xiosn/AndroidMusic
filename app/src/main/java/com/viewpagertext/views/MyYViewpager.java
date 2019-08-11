@@ -1,14 +1,12 @@
 package com.viewpagertext.views;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-
 import com.viewpagertext.R;
-
 import cn.youngkaaa.yviewpager.YViewPager;
 
 /**
@@ -44,17 +42,17 @@ public class MyYViewpager extends YViewPager {
              * 事件没办法再传递给子元素了
              */
             case MotionEvent.ACTION_DOWN://按下
-                isIntercept=false;
-                break;
+//                isIntercept=false;
+//                break;
             case MotionEvent.ACTION_MOVE://移动过程中
-                if (recyclerView.canScrollVertically(-1)==true){
-                    isIntercept=false;//不拦截
-                }
+//                if (recyclerView.canScrollVertically(-1)==true){
+//                    isIntercept=false;//不拦截
+//                }
                 break;
             case MotionEvent.ACTION_UP://放开
-                if (recyclerView.canScrollVertically(-1)==false){
-                    return super.onInterceptTouchEvent(ev);
-                }
+//                if (recyclerView.canScrollVertically(-1)==false){
+//                    return super.onInterceptTouchEvent(ev);
+//                }
 //                isIntercept=false;
                 break;
             default:

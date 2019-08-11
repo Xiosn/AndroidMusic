@@ -1,9 +1,15 @@
 package com.viewpagertext.adapters;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.List;
+
+/**
+ * name:小龙虾
+ * time:20.19.5.25
+ * type:获取本地音乐的适配器
+ */
 
 public class PlayFragmentPagerAdapter extends FragmentPagerAdapter {
 

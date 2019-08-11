@@ -12,4 +12,5 @@
         <item>com.github.glomadrian.grav.generator.animation.SideToSideAnimator</item>
         <item>com.github.glomadrian.grav.generator.animation.ShakeAnimator</item>
     </string-array>
+
 </resources>

@@ -1,62 +1,64 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_56"
-    android:orientation="vertical">
-
+<layout>
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/t_postion"
-            android:layout_width="@dimen/dp_56"
-            android:layout_height="@dimen/dp_56"
-            android:gravity="center"
-            android:text="编号"/>
+        android:layout_height="@dimen/dp_56"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/intoPlayPage"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
+            android:orientation="horizontal">
             <TextView
-                android:id="@+id/t_song"
+                android:id="@+id/t_postion"
+                android:layout_width="@dimen/dp_56"
+                android:layout_height="@dimen/dp_56"
+                android:gravity="center"
+                android:text="编号"/>
+
+            <LinearLayout
+                android:id="@+id/intoPlayPage"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/t_song"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/black"
+                    android:text="歌曲"/>
+
+                <TextView
+                    android:id="@+id/t_singer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_4"
+                    android:textSize="@dimen/sp_12"
+                    android:text="歌手"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/localmenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/black"
-                android:text="歌曲"/>
-
-            <TextView
-                android:id="@+id/t_singer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_4"
-                android:textSize="@dimen/sp_12"
-                android:text="歌手"/>
+                android:paddingRight="@dimen/dp_20"
+                android:paddingLeft="@dimen/dp_20"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_10"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/localmenu"/>
 
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/local_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="@dimen/dp_20"
-            android:paddingLeft="@dimen/dp_20"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_10"
-            android:layout_gravity="center_vertical"
-            android:src="@mipmap/localplay"/>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0_1"
+            android:layout_marginLeft="@dimen/dp_50"
+            android:background="@color/gray_cc"/>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0_1"
-        android:layout_marginLeft="@dimen/dp_50"
-        android:background="@color/gray_cc"/>
-</LinearLayout>
+</layout>

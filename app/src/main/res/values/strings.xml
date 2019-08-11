@@ -11,49 +11,41 @@
     <!--标题栏-->
     <string name="My">我的</string>
     <string name="Find">发现</string>
-    <string name="Friend">朋友</string>
+    <string name="Friend">视频</string>
 
-    <!--发现页-->
+    <!--主页发现页-->
     <string name="Everyday">每日推荐</string>
     <string name="Song_Sheet">歌单</string>
     <string name="Ranking_List">排行榜</string>
     <string name="Everyday_Song_Sheet">推荐歌单</string>
     <string name="Song_Square">歌单广场</string>
 
-    <!--我的-->
+    <!--主页我的-->
     <string name="LocalMusic">本地音乐</string>
     <string name="Down_Manager">下载管理</string>
 
-    <!--侧边栏-->
+    <!--主页侧边栏-->
     <string name="Login">点击登录</string>
     <string name="Update_Pwd">修改密码</string>
     <string name="About">关于软件</string>
     <string name="AppHome">项目主页</string>
     <string name="Close">退出</string>
 
-    <!--底部提示语-->
-    <string name="Bottom_Tips">--万物皆有底线--</string>
+    <!--主页底部提示语-->
+    <string name="Bottom_Tips">--马老师是个好老师！--</string>
 
     <string name="ap_name">YunMusicUI</string>
     <string name="title">云音乐新歌榜</string>
 
-    <array name="books">
-        <item>《三重门》</item>
-        <item>《零下一度》</item>
-        <item>《像少年啦飞驰》</item>
-        <item>《毒》</item>
-        <item>《通稿2003》</item>
-        <item>《韩寒五年》</item>
-        <item>《就这么漂来漂去》</item>
-        <item>《一座城池》</item>
-        <item>《寒-18禁》</item>
-        <item>《毒2》</item>
-        <item>《光荣日》</item>
-        <item>《杂的文》</item>
-        <item>《他的国》</item>
-        <item>《草》</item>
-        <item>《可爱的洪水猛兽》</item>
-        <item>《1988：我想和这个世界谈谈》</item>
-        <item>《独唱团》</item>
-    </array>
+    <!--本地音乐BottomSheetDialog子项文字-->
+    <string name="LocalMusicDialogSong">歌曲：</string>
+    <string name="LocalMusicDialogSinger">歌手：</string>
+    <string name="LocalMusicDialogAlbum">专辑：</string>
+    <string name="LocalMusicDialogSize">所占空间大小：</string>
+    <string name="LocalMusicDialogM"> M</string>
+    <string name="LocalMusicDialogSongTime">歌曲时长：</string>
+    <string name="LocalMusicDialogShare">分享</string>
+    <string name="LocalMusicDialogDelete">删除</string>
+    <string name="ListMusicDialogPlay">查看播放页</string>
+    <string name="ListMusicDialogLike">喜欢</string>
 </resources>

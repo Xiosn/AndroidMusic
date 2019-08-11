@@ -1,14 +1,13 @@
 package com.viewpagertext.activitys;
 
 
-import android.databinding.DataBindingUtil;
-import android.support.v4.app.Fragment;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import com.viewpagertext.R;
 import com.viewpagertext.adapters.PlayFragmentPagerAdapter;
-import com.viewpagertext.databinding.ActivityMovieDetailBinding;
 import com.viewpagertext.databinding.ActivityPlayBinding;
 import com.viewpagertext.fragments.ListFragment;
 import com.viewpagertext.fragments.SongFragment;

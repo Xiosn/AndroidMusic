@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,13 +29,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
+                <com.viewpagertext.views.MyRoundedImageView
                     android:id="@+id/iv_one_photo"
                     android:layout_width="@dimen/dp_140"
                     android:layout_height="@dimen/dp_140"
                     android:layout_marginRight="15dp"
                     android:scaleType="fitXY"
-                    android:transitionName="@string/Song_Square" />
+                    app:riv_corner_radius="@dimen/dp_10"
+                    app:riv_oval="false" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -42,80 +44,6 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="12dp"
                     android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginTop="2dp"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="43dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="作者："
-                                android:textColor="@color/white" />
-
-                            <View
-                                android:layout_width="28dp"
-                                android:layout_height="2dp"
-                                android:layout_marginTop="2dp"
-                                android:background="@color/colorTheme" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/tv_one_directors"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:text="韩寒"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="文学体裁："
-                            android:textColor="@color/white" />
-
-                        <TextView
-                            android:id="@+id/tv_one_casts"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:text="长篇小说"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tv_one_genres"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginTop="2dp"
-                        android:ellipsize="end"
-                        android:text="首版时间：2010年7月6日"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/tv_one_day"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginTop="2dp"
-                        android:ellipsize="end"
-                        android:text="字    数：210000"
-                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/tv_one_city"
@@ -125,7 +53,8 @@
                         android:layout_marginTop="2dp"
                         android:ellipsize="end"
                         android:lines="2"
-                        android:text="人物介绍：娜娜、丁丁哥哥、10号、刘茵茵等"
+                        android:text="我是标题简介"
+                        android:textSize="@dimen/sp_16"
                         android:textColor="@color/white" />
 
                 </LinearLayout>

@@ -1,96 +1,119 @@
 package com.viewpagertext.adapters;
 
 import android.content.Context;
-import android.support.v4.app.ListFragment;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.viewpagertext.R;
+import com.viewpagertext.json.ListFragmentSongMusics;
 
-import java.util.List;
+import java.util.ArrayList;
+
+import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
 /**
  * name:小龙虾
  * time:2019.5.4
- * Type:详情页RecyclerView适配器
+ * Type:发现页9宫格RecyclerView适配器
  */
 
-public class ListRecAdapter extends RecyclerView.Adapter<ListRecAdapter.NormalTextViewHolder> {
-
-    private final LayoutInflater mLayoutInflater;
-    private List<String> mDatas;
-    private OnRecyclerViewItemClickListener myClickItemListener;// 声明自定义的接口
-
-
-    public ListRecAdapter(Context context,List<String> mDatas) {
-        this.mDatas=mDatas;
-        mLayoutInflater = LayoutInflater.from(context);
+public class ListRecAdapter extends RecyclerView.Adapter<ListRecAdapter.NormalTextViewHolder> implements View.OnClickListener{
+    private Context mContext;
+    private ArrayList<ListFragmentSongMusics.DataBean> mData;
+    public ListRecAdapter(Context context, ArrayList<ListFragmentSongMusics.DataBean> mData) {
+        this.mContext=context;
+        this.mData=mData;
     }
 
     @Override
-    public NormalTextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view=mLayoutInflater.inflate(R.layout.item_layout, parent, false);
-        NormalTextViewHolder holder=new NormalTextViewHolder(view,myClickItemListener);
+    public NormalTextViewHolder onCreateViewHolder(ViewGroup viewGroup,  int viewType) {
+        NormalTextViewHolder holder=new NormalTextViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_layout,viewGroup,false));
         return holder;
     }
 
-    /**
-     * 定义public方法用以将接口暴露给外部
-     * @param listener
-     */
-    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
-        this.myClickItemListener = listener;
-    }
-
-
     @Override
-    public void onBindViewHolder(NormalTextViewHolder holder, int position) {
-        holder.mTextView.setText(mDatas.get(position));
-        holder.itemView.setTag(position);//子项点击
-        holder.playorpause.setOnClickListener(new View.OnClickListener() {//详情页播放按钮
-            @Override
-            public void onClick(View v) {
+    public void onBindViewHolder(NormalTextViewHolder viewHolder, final int position) {
+        ListFragmentSongMusics.DataBean data=mData.get(position);
+        viewHolder.Listt_song.setText(data.getName());
+        viewHolder.Listt_singer.setText(data.getSinger());//设置歌手
 
-            }
-        });
+        viewHolder.itemView.setTag(position);
+        viewHolder.ListFragment_menu.setTag(position);
+        viewHolder.Listt_postion.setText(data.getNumber());//设置编号
+        viewHolder.ListintoPlayPage.setTag(position);
     }
 
+    //获取数据的数量
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return mData.size();
     }
 
-    /**
-     * 自定义接口
-     */
-    public interface OnRecyclerViewItemClickListener {
-        public void onItemClick(View view, int postion);
-    }
 
-    class NormalTextViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView mTextView;
-        ImageView playorpause;
-        private OnRecyclerViewItemClickListener mListener;// 声明自定义的接口
+    //自定义的ViewHolder，持有每个Item的的所有界面元素
+    public class NormalTextViewHolder extends RecyclerView.ViewHolder {
+        TextView Listt_song,Listt_postion,Listt_singer;
+        ImageView ListFragment_menu;
+        LinearLayout ListintoPlayPage;
 
-        NormalTextViewHolder(View view, OnRecyclerViewItemClickListener mListener) {
+        public NormalTextViewHolder(View view){
             super(view);
-            itemView.setOnClickListener(this);
-            this.mListener = mListener;
-            mTextView =  view.findViewById(R.id.item_name);//子项
-            playorpause=view.findViewById(R.id.playorpause);//详情页播放按钮
+
+            ListFragment_menu=view.findViewById(R.id.ListFragment_menu);//菜单弹窗
+            Listt_song = view.findViewById(R.id.Listt_song);//歌名
+            Listt_postion=view.findViewById(R.id.Listt_postion);
+            Listt_singer=view.findViewById(R.id.Listt_singer);
+            ListintoPlayPage=view.findViewById(R.id.ListintoPlayPage);
+
+            itemView.setOnClickListener(ListRecAdapter.this);
+            ListFragment_menu.setOnClickListener(ListRecAdapter.this);
+            ListintoPlayPage.setOnClickListener(ListRecAdapter.this);
         }
-        @Override
-        public void onClick(View v) {
-            //getAdapterPosition()为Viewholder自带的一个方法，用来获取RecyclerView当前的位置，将此作为参数，传出去
-            mListener.onItemClick(v, getAdapterPosition());
+    }
+
+
+    //=======================以下为item中的button控件点击事件处理===================================
+
+    //item里面有多个控件可以点击（item+item内部控件）
+    public enum ViewName {
+        ITEM,
+        PRACTISE
+    }
+
+
+    //自定义一个回调接口来实现Click和LongClick事件
+    public interface OnItemClickListener  {
+        void onItemClick(View v, ViewName viewName, int position);
+        void onItemLongClick(View v);
+    }
+
+
+    private OnItemClickListener mOnItemClickListener;//声明自定义的接口
+
+
+    //定义方法并传给外面的使用者
+    public void setOnItemClickListener(OnItemClickListener  listener) {
+        this.mOnItemClickListener  = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int position = (int) v.getTag();      //getTag()获取数据
+        if (mOnItemClickListener != null) {
+            switch (v.getId()){
+                case R.id.xrv_list:
+                    mOnItemClickListener.onItemClick(v, ViewName.PRACTISE, position);
+                    break;
+                default:
+                    mOnItemClickListener.onItemClick(v, ViewName.ITEM, position);
+                    break;
+            }
         }
     }
 }
-
-

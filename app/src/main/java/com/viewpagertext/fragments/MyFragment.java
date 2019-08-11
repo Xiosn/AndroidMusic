@@ -1,16 +1,16 @@
 package com.viewpagertext.fragments;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.viewpagertext.R;
-import com.viewpagertext.activitys.LoadSongActivity;
+import com.viewpagertext.activitys.LocalActivity;
 import com.viewpagertext.databinding.FragmentMyBinding;
 
 /**
@@ -34,7 +34,7 @@ public class MyFragment extends Fragment {
         binding.loadMusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), LoadSongActivity.class));
+                startActivity(new Intent(getActivity(), LocalActivity.class));
             }
         });
     }

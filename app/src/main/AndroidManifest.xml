@@ -3,6 +3,7 @@
     package="com.viewpagertext">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".app.ScrollShapeUIApplication"
@@ -12,13 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activitys.LoadSongActivity"></activity>
+        <activity android:name=".activitys.ProjectHomeActivity"></activity>
+        <activity android:name=".activitys.LocalActivity" />
         <activity
             android:name=".activitys.PlayActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyScrollPage" />
         <activity android:name=".activitys.LoginActivity" />
-        <activity android:name=".activitys.MainActivity" />
+        <activity
+            android:name=".activitys.MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.WelcomeActivity"
             android:icon="@mipmap/bytemusic">
