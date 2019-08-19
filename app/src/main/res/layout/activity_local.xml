@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_20"
-        tools:context=".activitys.LocalActivity">
+        android:layout_height="match_parent">
 
         <cn.youngkaaa.yviewpager.YViewPager
             android:id="@+id/localYViewPager"
@@ -14,6 +11,5 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"/>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </layout>

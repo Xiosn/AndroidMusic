@@ -1,10 +1,11 @@
 <resources>
 
     <!--应用名称-->
-    <string name="app_name">字节音乐</string>
+    <string name="app_name">安浊音乐</string>
 
 
     <!--启动页-->
+    <string name="StartWelcomeText">Musicꦿ℘゜এ</string>
     <string name="StartWelcome">玩音乐，玩出精彩</string>
 
 
@@ -32,7 +33,7 @@
     <string name="Close">退出</string>
 
     <!--主页底部提示语-->
-    <string name="Bottom_Tips">--马老师是个好老师！--</string>
+    <string name="Bottom_Tips">怦然心动的感觉ꦿ℘゜এ</string>
 
     <string name="ap_name">YunMusicUI</string>
     <string name="title">云音乐新歌榜</string>

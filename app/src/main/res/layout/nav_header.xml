@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_180"
     android:orientation="vertical"
-    android:background="@mipmap/banner1">
+    android:background="@mipmap/b">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
                 android:layout_width="@dimen/dp_70"
                 android:layout_height="@dimen/dp_70"
                 app:riv_border_width="@dimen/dp_2"
-                android:src="@mipmap/rabbit"
+                android:src="@mipmap/a"
                 app:riv_oval="true"/>
 
             <TextView

@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@mipmap/play_head"
+            android:src="@mipmap/a"
             app:riv_corner_radius="@dimen/dp_5"
             app:riv_oval="false"/>
         <LinearLayout
@@ -55,8 +55,8 @@
         android:id="@+id/grid_song_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
         android:text="歌单名称"
         android:textColor="@color/black"
-        android:textSize="@dimen/sp_12"
-        android:padding="@dimen/dp_5" />
+        android:textSize="@dimen/sp_12" />
 </LinearLayout>

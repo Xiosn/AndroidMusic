@@ -1,11 +1,6 @@
 package com.viewpagertext.app;
 
-
 import android.app.Application;
-
-/**
- * Created by jingbin on 2016/11/22.
- */
 
 public class ScrollShapeUIApplication extends Application {
 

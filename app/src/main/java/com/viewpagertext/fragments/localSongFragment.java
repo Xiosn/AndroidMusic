@@ -1,60 +1,57 @@
 package com.viewpagertext.fragments;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.viewpagertext.R;
 import com.viewpagertext.activitys.MainActivity;
-import com.viewpagertext.adapters.LocalSongListViewAdapter;
+import com.viewpagertext.adapters.LocalSongRecAdapter;
 import com.viewpagertext.constructor.Song;
 import com.viewpagertext.help.MediaPlayerHelp;
 import com.viewpagertext.utils.LoadSongUtils;
+import com.viewpagertext.utils.StatusBarUtil;
 import com.viewpagertext.views.MyRoundedImageView;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class localSongFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class localSongFragment extends Fragment{
 
-    private ListView mylist;
+    private RecyclerView mylist;
     private List<Song> list;
     private MediaPlayerHelp mMediaPlayerHelp;
     private SwipeRefreshLayout refreshLayout;
     private boolean isPlaying;
-    private LocalSongListViewAdapter myAdapter;
     private View v;
     private BottomSheetDialog bottomSheetDialog;
     private String song,singer,album,duration;
     private long size;
     private MyRoundedImageView localDialogIcon;
     private Bitmap bitmap;
-    @Nullable
+    private LinearLayout loadTitleBar;
+    private LocalSongRecAdapter adapter;
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView( LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_localsong,container,false);
         list = new ArrayList<>();
+        StatusBarUtil.setTransparentForImageView(getActivity(),loadTitleBar);
+        StatusBarUtil.StatusBarTextColor(getActivity(),true);
 
-        initCheckSelfPermission();//运行时检查权限
+        newData();//加载本地音乐
 
         initView();//控件实例化
 
@@ -64,8 +61,16 @@ public class localSongFragment extends Fragment implements AdapterView.OnItemCli
 
     private void initView(){
         mylist = v.findViewById(R.id.mylist);
+        mylist.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter= new LocalSongRecAdapter(getActivity(),list);
+        mylist.setAdapter(adapter);
+        // 设置item及item中控件的点击事件
+        adapter.setOnItemClickListener(MyItemClickListener);
+
+
         mMediaPlayerHelp=MediaPlayerHelp.getInstance(getActivity());
-        mylist.setDivider(null);
+
+
         refreshLayout =v.findViewById(R.id.refreshLayout);
         MyRoundedImageView local_back_icon = v.findViewById(R.id.local_back_icon);
         local_back_icon.setOnClickListener(new View.OnClickListener() {
@@ -74,44 +79,54 @@ public class localSongFragment extends Fragment implements AdapterView.OnItemCli
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });
-        myAdapter = new LocalSongListViewAdapter(getActivity(), list);
-        mylist.setOnItemClickListener(this);
-        mylist.setAdapter(myAdapter);
 
+
+        v.findViewById(R.id.loadTitleBar);
 
     }
 
-    @Override//ListView子项添加点击事件
-    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+    /**
+     * item＋item里的控件点击监听事件
+     */
+    private LocalSongRecAdapter.OnItemClickListener MyItemClickListener = new LocalSongRecAdapter.OnItemClickListener() {
 
+        @Override
+        public void onItemClick(View v, LocalSongRecAdapter.ViewName viewName, int position) {
+            song=list.get(position).song;//获取歌名
+            singer=list.get(position).singer;//获取歌手
+            size=list.get(position).size;//歌曲大小
+            duration = LoadSongUtils.formatTime(list.get(position).duration);//歌曲时长
+            album=list.get(position).album;//歌曲专辑
+            long albumId=list.get(position).albumId;
+            bitmap=LoadSongUtils.getMusicBitemp(getActivity(), position, albumId);
+            String p=list.get(position).path;//获得歌曲的地址
 
-        song=list.get(position).song;//获取歌名
-        singer=list.get(position).singer;//获取歌手
-        size=list.get(position).size;//歌曲大小
-        duration = LoadSongUtils.formatTime(list.get(position).duration);//歌曲时长
-        album=list.get(position).album;//歌曲专辑
-
-        long albumId=list.get(position).albumId;
-        bitmap=LoadSongUtils.getMusicBitemp(getActivity(), position, albumId);
-
-        LinearLayout intoPlayPage=view.findViewById(R.id.intoPlayPage);//item中间文字
-        intoPlayPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(getActivity(),"分享",Toast.LENGTH_SHORT).show();
-                String p=list.get(position).path;//获得歌曲的地址
-
-                if (isPlaying){
-                    stopMusic(p);
-                }else{
-                    playMusic(p);
-                }
+            //viewName可区分item及item内部控件
+            switch (v.getId()){
+                case R.id.localmenu:
+//                    Toast.makeText(getActivity(),"你点击了同意按钮"+(position+1),Toast.LENGTH_SHORT).show();
+                    initDialog();
+                    break;
+//                case R.id.btn_refuse:
+//                    Toast.makeText(MainActivity.this,"你点击了拒绝按钮"+(position+1),Toast.LENGTH_SHORT).show();
+//                    break;
+                default:
+//                    Toast.makeText(getActivity(),"你点击了item按钮"+(position+1),Toast.LENGTH_SHORT).show();
+                    if (isPlaying){
+                        stopMusic(p);
+                    }else{
+                        playMusic(p);
+                    }
+                    break;
             }
-        });
+        }
 
-        initDialog();
+        @Override
+        public void onItemLongClick(View v) {
 
-    }
+        }
+    };
+
 
     private void initDialog() {
         View view = View.inflate(getActivity(), R.layout.local_dialog, null);
@@ -137,16 +152,6 @@ public class localSongFragment extends Fragment implements AdapterView.OnItemCli
         bottomSheetDialog.show();
     }
 
-    private void initCheckSelfPermission(){
-
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
-        }
-        else{
-            list = LoadSongUtils.getmusic(getActivity());
-        }
-    }
-
     //监听下拉刷新
     private void initRefreshLayout(){
         refreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -162,7 +167,7 @@ public class localSongFragment extends Fragment implements AdapterView.OnItemCli
     }
 
     private void refresh(){
-        //设置2秒的时间来执行以下事件
+        //设置1秒的时间来执行以下事件
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -175,7 +180,7 @@ public class localSongFragment extends Fragment implements AdapterView.OnItemCli
                     @Override
                     public void run() {
                         newData();
-                        myAdapter.notifyDataSetChanged();
+                        adapter.notifyDataSetChanged();
                         refreshLayout.setRefreshing(false);
                     }
                 });
@@ -187,24 +192,6 @@ public class localSongFragment extends Fragment implements AdapterView.OnItemCli
     private void newData(){
         list.clear();
         list.addAll(LoadSongUtils.getmusic(getActivity()));
-    }
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case 1:
-                if (grantResults.length>0&&grantResults[0]!=PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(getActivity(),"权限被拒绝",Toast.LENGTH_SHORT).show();
-                }
-                break;
-        }
-    }
-
-    @Override//activity暂停交互时调用,用于刷新本地歌曲
-    public void onPause() {
-        super.onPause();
-        newData();
-        myAdapter.notifyDataSetChanged();
     }
 
     //播放音乐
@@ -243,7 +230,7 @@ public class localSongFragment extends Fragment implements AdapterView.OnItemCli
         }else{
 //        itemIvPlay.setVisibility(View.VISIBLE);
             mMediaPlayerHelp.setPath(path);
-            mMediaPlayerHelp.stop();
+//            mMediaPlayerHelp.stop();
 
         }
     }

@@ -10,11 +10,12 @@
     android:orientation="horizontal">
 
     <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/MainButtomPic"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
         app:riv_border_width="@dimen/dp_1"
         android:layout_margin="@dimen/dp_5"
-        android:src="@mipmap/play_head"
+        android:src="@mipmap/a"
         app:riv_oval="true"/>
     <LinearLayout
         android:layout_width="0dp"

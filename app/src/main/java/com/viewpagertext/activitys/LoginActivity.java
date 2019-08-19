@@ -1,24 +1,27 @@
 package com.viewpagertext.activitys;
 
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.view.View;
 import com.viewpagertext.R;
 import com.viewpagertext.fragments.LoginFragment;
+import com.viewpagertext.utils.StatusBarUtil;
 
 /**
  * name:小龙虾
  * time:2019.5.4
  */
 
-public class LoginActivity extends BaseActivity{
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        StatusBarUtil.setTransparent(this);
         initView();//Fragment切换
     }
 

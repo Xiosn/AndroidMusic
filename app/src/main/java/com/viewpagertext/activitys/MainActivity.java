@@ -1,11 +1,16 @@
 package com.viewpagertext.activitys;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import com.google.android.material.navigation.NavigationView;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
@@ -14,15 +19,20 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.viewpagertext.R;
 import com.viewpagertext.adapters.HomeFragmentStatePagerAdapter;
 import com.viewpagertext.fragments.FindFragment;
 import com.viewpagertext.fragments.FriendFragment;
 import com.viewpagertext.fragments.MyFragment;
+import com.viewpagertext.utils.PermissionUtils;
+import com.viewpagertext.utils.StatusBarUtil;
 import com.viewpagertext.utils.UserUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +41,7 @@ import java.util.List;
  * time:2019.5.4
  */
 
-
-public class MainActivity extends BaseActivity implements View.OnClickListener,ViewPager.OnPageChangeListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,ViewPager.OnPageChangeListener{
 
     private DrawerLayout mDrawerLayout;
     private Toolbar toolbar;
@@ -45,12 +54,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        StatusBarUtil.setTransparentForImageView(this,toolbar);
+        StatusBarUtil.StatusBarTextColor(this,true);
         initData();//添加Fragment到 List<Fragment> mDatas集合
         initIdListener();//获取控件实例
         header_click();//动态加载nav头布局
-
-
+        StatusBarUtil.statusBarVersion(this);
+        PermissionUtils.initCheckSelfPermission(this);
         myFragmentStatePagerAdapter=new HomeFragmentStatePagerAdapter(getSupportFragmentManager(),mDatas);
         viewPager.setAdapter(myFragmentStatePagerAdapter);
         viewPager.setCurrentItem(1);//默认首次进入的页面
@@ -58,9 +68,43 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
 
     }
 
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 1:
+                if (grantResults.length>0&&grantResults[0]!=PackageManager.PERMISSION_GRANTED){
+                    showDialog();
+                }
+                break;
+        }
+    }
+
+    private void showDialog(){
+        Dialog dialog= new AlertDialog.Builder(this)
+                .setMessage("请授权必要权限")
+                .setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        PermissionUtils.initCheckSelfPermission(MainActivity.this);
+                    }
+                })
+                .setNegativeButton("拒绝", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).create();
+        dialog.setCanceledOnTouchOutside(false);//点击屏幕不消失
+        dialog.setCancelable(false);//点击返回键不消失
+        dialog.show();
+    }
+
+
+
 
     /**
-     * 页面事件
+     * 发现页面的事件
      * @param v
      */
     @Override
@@ -87,11 +131,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         }
     }
 
-
-    
-    /**
-     * 动态加载nav头布局
-     */
+    //nav布局Item点击项
     private void header_click(){
         NavigationView navigationView=findViewById(R.id.nav_view);
 
@@ -145,8 +185,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
-    }
 
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                RoundedImageView MainButtomPic=findViewById(R.id.MainButtomPic);//Main底部图片动画
+                Animation rotateAnimation = AnimationUtils.loadAnimation(MainActivity.this,R.anim.main_bottom_pic_rotate);
+                rotateAnimation.setInterpolator(new LinearInterpolator());
+                MainButtomPic.startAnimation(rotateAnimation);
+            }
+        }).start();
+
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -228,7 +285,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
 
     @Override
     public void onPageScrolled(int i, float v, int i1) {
-
     }
 
     @Override
@@ -239,5 +295,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
     @Override
     public void onPageScrollStateChanged(int i) {
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        PermissionUtils.initCheckSelfPermission(this);
     }
 }

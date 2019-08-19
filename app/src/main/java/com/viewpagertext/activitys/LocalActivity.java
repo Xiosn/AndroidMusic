@@ -1,5 +1,6 @@
 package com.viewpagertext.activitys;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import com.viewpagertext.R;
 import com.viewpagertext.adapters.LocalAdapter;
 import com.viewpagertext.databinding.ActivityLocalBinding;
 import com.viewpagertext.fragments.localSongFragment;
+import com.viewpagertext.utils.StatusBarUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +19,7 @@ import java.util.List;
  * type :本地音乐YViewPager切换
  */
 
-public class LocalActivity extends BaseActivity {
+public class LocalActivity extends AppCompatActivity {
 
     private List<Fragment> mDatas;
     private ActivityLocalBinding binding;

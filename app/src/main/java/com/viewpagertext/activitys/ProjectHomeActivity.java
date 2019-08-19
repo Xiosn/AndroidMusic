@@ -1,16 +1,18 @@
 package com.viewpagertext.activitys;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.webkit.WebViewClient;
 import com.viewpagertext.R;
 import com.viewpagertext.databinding.ActivityProjectHomeBinding;
+import com.viewpagertext.utils.StatusBarUtil;
 
 /**
  * name:小龙虾
  * time:2019.6.29
  */
-public class ProjectHomeActivity extends BaseActivity {
+public class ProjectHomeActivity extends AppCompatActivity {
 
     private  ActivityProjectHomeBinding binding;
     @Override
@@ -18,7 +20,7 @@ public class ProjectHomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_home);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_project_home);
-        changeStatusBarTextImgColor(true);
+        StatusBarUtil.StatusBarTextColor(this,true);
         initView();
     }
 

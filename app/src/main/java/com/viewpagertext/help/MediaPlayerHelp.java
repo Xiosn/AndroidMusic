@@ -8,7 +8,7 @@ public class MediaPlayerHelp {
 
     private static MediaPlayerHelp instance;
     private Context mContext;
-    private MediaPlayer mMediaPlayer;
+    public static MediaPlayer mMediaPlayer;
     private OnMediaPlayerHelperListener onMediaPlayerHelperListener;
     private String mPath;
 
@@ -28,7 +28,7 @@ public class MediaPlayerHelp {
         return instance;
     }
 
-    private MediaPlayerHelp(Context context){
+    public MediaPlayerHelp(Context context){
         mContext=context;
         mMediaPlayer=new MediaPlayer();
     }

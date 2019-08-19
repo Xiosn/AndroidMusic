@@ -19,6 +19,7 @@ import com.viewpagertext.Lrc.LrcRow;
 import com.viewpagertext.R;
 import com.viewpagertext.constructor.ListToPlayEvent;
 import com.viewpagertext.databinding.FragmentSongBinding;
+import com.viewpagertext.help.MediaPlayerHelp;
 import com.viewpagertext.utils.HttpUtil;
 import com.viewpagertext.utils.TimeUtil;
 
@@ -27,6 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,6 +39,8 @@ import android.widget.Toast;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import okhttp3.Call;
 import okhttp3.Response;
+
+import static com.viewpagertext.help.MediaPlayerHelp.mMediaPlayer;
 
 
 /**
@@ -56,9 +60,10 @@ public class SongFragment extends Fragment {
     private Timer mTimer;
     //更新歌词的定时任务
     private TimerTask mTask;
-    private MediaPlayer mPlayer;
+    //    private MediaPlayer mPlayer;
     private int p;
-
+    private boolean isPlaying;
+    private MediaPlayerHelp mMediaPlayerHelp;
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
 
@@ -66,6 +71,7 @@ public class SongFragment extends Fragment {
         EventBus.getDefault().register(this);//注册消息
         initstaus();//设置状态栏颜色
         initView();//初始化控件
+        mMediaPlayerHelp=MediaPlayerHelp.getInstance(getActivity());
         return binding.getRoot();
     }
 
@@ -77,14 +83,11 @@ public class SongFragment extends Fragment {
                 .load(event.getPic())
                 .error(R.mipmap.stackblur_default)
                 .bitmapTransform(new BlurTransformation(getActivity(), 200, 3))// 设置高斯模糊
-        .into(binding.bgPhoto);
+                .into(binding.bgPhoto);
 
         binding.NetPlayTitleMusic.setText(event.getName()+" - "+event.getSinger());//播放页歌曲标题
         LrcPath=event.getLrc();//获取歌单详情页传递过来的歌词API接口
         Url=event.getUrl();//获取播放地址
-//        if (mPlayer.isPlaying()){
-//            mPlayer.pause();
-//        }
         binding.playTime.setText(event.getTime());
         sendRequestWithOkHttp();
     }
@@ -103,17 +106,13 @@ public class SongFragment extends Fragment {
                 //解析歌词返回LrcRow集合
                 List<LrcRow> rows = builder.getLrcRows(lrc);
                 binding.lrcView.setLrc(rows);//将得到的歌词集合传给mLrcView用来展示
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (Url.equals(netPath)){
-                            mPlayer.start();
-                        }else{
-                            //开始播放歌曲并同步展示歌词
-                            beginLrcPlay();
-                        }
+                if (mMediaPlayer.isPlaying()){
+                      stopLrcPlay();
+                      stopMusic(Url);
+                   }else{
+                      beginLrcPlay();
+//                    playMusic(Url);
                     }
-                });
             }
         });
     }
@@ -122,15 +121,13 @@ public class SongFragment extends Fragment {
      * 开始播放歌曲并同步展示歌词
      */
     public void beginLrcPlay(){
-        mPlayer = new MediaPlayer();
-        netPath=Url;
         try {
-            mPlayer.setDataSource(netPath);//设置歌词播放地址
+            mMediaPlayer.setDataSource(Url);//设置歌词播放地址
             //准备播放歌曲监听
-            mPlayer.setOnPreparedListener(new OnPreparedListener() {
+            mMediaPlayer.setOnPreparedListener(new OnPreparedListener() {
                 //准备完毕
                 public void onPrepared(MediaPlayer mp) {
-                    mp.start();
+//                    mp.start();
                     if(mTimer == null){
                         mTimer = new Timer();
                         mTask = new LrcTask();
@@ -139,17 +136,19 @@ public class SongFragment extends Fragment {
                 }
             });
             //歌曲播放完毕监听
-            mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 public void onCompletion(MediaPlayer mp) {
                     stopLrcPlay();
                     binding.button2.setImageResource(R.mipmap.m_icon_player_play_normal);
                 }
             });
-            //准备播放歌曲
-            mPlayer.prepare();
-            //开始播放歌曲
-            mPlayer.start();
-            binding.button2.setImageResource(R.mipmap.m_icon_player_pause_normal);
+//            //准备播放歌曲
+            mMediaPlayer.prepare();
+//            //开始播放歌曲
+//            playMusic(Url);
+//            mMediaPlayer.start();
+//            playMusic(Url);
+//            binding.button2.setImageResource(R.mipmap.m_icon_player_pause_normal);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {
@@ -177,8 +176,8 @@ public class SongFragment extends Fragment {
 
         public void run() {
             //获取歌曲播放的位置
-            final long timePassed = mPlayer.getCurrentPosition();
-            binding.progress.setMax(mPlayer.getDuration());//设置SeekBar的长度
+            final long timePassed = mMediaPlayer.getCurrentPosition();
+            binding.progress.setMax(mMediaPlayer.getDuration());//设置SeekBar的长度
             getProgress();
 //            Log.d("网络歌曲播放界面","歌曲播放位置的时间点："+timePassed);
             if (getActivity()==null) return;
@@ -214,12 +213,17 @@ public class SongFragment extends Fragment {
                 if (binding.NetPlayTitleMusic.equals("暂无歌曲")){
                     Toast.makeText(getActivity(),"找不到歌曲",Toast.LENGTH_SHORT).show();
                 }
-                if (mPlayer.isPlaying()){
-                    stopLrcPlay();
-                    mPlayer.pause();
+                if (mMediaPlayer.isPlaying()){
+//                    stopMusic(Url);
+//                    stopLrcPlay();
+                    mMediaPlayer.pause();
                     binding.button2.setImageResource(R.mipmap.m_icon_player_play_normal);
-                }else {
-                    playStart();
+//                    binding.button2.setImageResource(R.mipmap.m_icon_player_pause_normal);
+                }else{
+//                    beginLrcPlay();
+                    playMusic(Url);
+                    binding.button2.setImageResource(R.mipmap.m_icon_player_pause_normal);
+//                    mMediaPlayer.start();
                 }//播放按钮显示图标判断
             }
         });
@@ -242,7 +246,7 @@ public class SongFragment extends Fragment {
                 //获取进度条的进度
                 int p = seekBar.getProgress();
                 //将进度条的进度赋值给歌曲
-                mPlayer.seekTo(p);
+                mMediaPlayer.seekTo(p);
 
                 //开始音乐继续获取歌曲的进度
                 getProgress();
@@ -252,9 +256,9 @@ public class SongFragment extends Fragment {
         binding.lrcView.setListener(new ILrcViewListener() {//滑动歌词播放对应歌词
             @Override
             public void onLrcSeeked(int newPosition, LrcRow row) {
-                if (mPlayer != null) {
+                if (mMediaPlayer != null) {
 //                    Log.d(TAG, "onLrcSeeked:" + row.time);
-                    mPlayer.seekTo((int) row.time);
+                    mMediaPlayer.seekTo((int) row.time);
                 }
 
             }
@@ -264,13 +268,13 @@ public class SongFragment extends Fragment {
     //实时获取歌曲的进度
     private void getProgress() {
 
-       Timer timer = new Timer();
+        Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
 
                 //获取歌曲的进度
-                p = mPlayer.getCurrentPosition();
+                p = mMediaPlayer.getCurrentPosition();
                 //将获取歌曲的进度赋值给seekbar
                 binding.progress.setProgress(p);
                 if (getActivity()==null) return;
@@ -287,7 +291,7 @@ public class SongFragment extends Fragment {
 
     //播放歌曲
     private void playStart(){
-        mPlayer.start();
+        mMediaPlayer.start();
         binding.button2.setImageResource(R.mipmap.m_icon_player_pause_normal);
     }
     //状态栏设置
@@ -303,8 +307,56 @@ public class SongFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);//反注册
-//        if (mPlayer != null) {
-//            mPlayer.stop();
+//        if (mMediaPlayer != null) {
+//            mMediaPlayer.stop();
 //        }
     }
+
+
+    //播放音乐
+    public void playMusic(String path){
+//        mPath=path;
+        isPlaying=true;
+        /**
+         * 1、当前音乐是否已经在播放的音乐
+         * 2、如果当前的音乐已经是在播放的音乐的话，那么就直接执行start方法
+         * 3、如果当前播放的音乐不是需要播放的音乐，那么就调用setPath的方法
+         */
+        if (mMediaPlayerHelp.getPath()!=null
+                && mMediaPlayerHelp.getPath().equals(path)){
+//            Toast.makeText(getActivity(),"播放继续",Toast.LENGTH_SHORT).show();
+            mMediaPlayer.start();
+        }else{
+            mMediaPlayerHelp.setPath(path);
+            mMediaPlayerHelp.setOnMediaPlayerHelperListener(new MediaPlayerHelp.OnMediaPlayerHelperListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mMediaPlayer.start();
+                    if(mTimer == null){
+                        mTimer = new Timer();
+                        mTask = new LrcTask();
+                        mTimer.scheduleAtFixedRate(mTask, 0, mPalyTimerDuration);
+                    }
+//                    Toast.makeText(getActivity(),"播放开始",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    //停止音乐
+    public void stopMusic(String path){
+        isPlaying=false;
+        if (mMediaPlayerHelp.getPath()!=null
+                && mMediaPlayerHelp.getPath().equals(path)){
+            mMediaPlayerHelp.pause();
+//            Toast.makeText(getActivity(),"播放暂停",Toast.LENGTH_SHORT).show();
+
+        }else{
+//        itemIvPlay.setVisibility(View.VISIBLE);
+            mMediaPlayerHelp.setPath(path);
+//          mMediaPlayerHelp.stop();
+
+        }
+    }
+
 }

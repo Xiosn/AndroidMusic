@@ -15,14 +15,36 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 /**
- * Created by Jaeger on 16/2/14.
- * <p>
- * Email: chjie.jaeger@gmail.com
  * GitHub: https://github.com/laobie
  */
 public class StatusBarUtil {
 
     public static final int DEFAULT_STATUS_BAR_ALPHA = 112;
+
+    /**
+     * 判断系统版本，5.0+状态栏透明
+     */
+    public static void statusBarVersion(Activity activity){
+        if (Build.VERSION.SDK_INT>=21){
+            View decorView = activity.getWindow().getDecorView();
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+    }
+
+    /**
+     *状态栏字体
+     * @param isBlack
+     */
+    public static void StatusBarTextColor(Activity activity,boolean isBlack) {
+        if (isBlack) {
+            //设置状态栏黑色字体
+            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        } else {
+            //恢复状态栏白色字体
+            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+        }
+    }
 
     /**
      * 设置状态栏颜色
