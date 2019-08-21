@@ -1,8 +1,6 @@
 package com.viewpagertext.adapters;
 
 import android.content.Context;
-
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +29,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         this.mList = list;
     }
 
-    @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         MyViewHolder holder = new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.friend_video_item, viewGroup, false));
